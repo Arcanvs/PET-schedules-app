@@ -3,3 +3,9 @@ export interface UserInfo {
     name: string;
     email: string;
 }
+
+export const UserInfoEmpty : UserInfo = {
+    id: 0,
+    name: '',
+    email: ''
+}
