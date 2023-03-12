@@ -1,7 +1,12 @@
 import { FC } from 'react';
+import { FormLogin } from '../UI/organisms';
 
 const Login: FC = () => {
-    return <>Welcome Login</>
+    return (
+        <>
+            <FormLogin />
+        </>
+    );
 }
 
 export default Login;

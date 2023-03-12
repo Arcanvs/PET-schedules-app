@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Login, Dashboard } from "./components/pages";
+import 'antd/dist/reset.css';
 
 function App() {
   let sesionValue : boolean = false;
