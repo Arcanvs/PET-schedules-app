@@ -4,30 +4,29 @@ import { Login, Dashboard } from "./components/pages";
 import 'antd/dist/reset.css';
 
 function App() {
-  let sesionValue : boolean = false;
+  let sesionValue : any = {sesion: false};
+ 
+  if( localStorage.getItem('sesion') ){
+    sesionValue = JSON.parse(localStorage.getItem('sesion') ?? '{sesion: false}');
+  }
+
+  const [ sesion, setSesion ] = useState<any>(sesionValue);
   
-  if(localStorage.getItem('sesion') == 'true'){
-		sesionValue = Boolean(localStorage.getItem('sesion'));
-	}
-
-	const [ sesion, setSesion ] = useState<boolean>(sesionValue);
-	
 	useEffect( () => {
-		localStorage.setItem('sesion', sesion.toString());
+		localStorage.setItem('sesion', JSON.stringify(sesion));
 	}, [sesion]);
-
 
   return (
     <main className="App">
       <BrowserRouter>
         <Routes>
-          { !sesion && (
+          { !sesion.sesion && (
             <Route 
               path = '/auth'
               element = { <Login /> }
             />
           )}
-          { sesion && (
+          { sesion.sesion && (
             <>
               <Route 
                 path = '/home'
@@ -37,7 +36,7 @@ function App() {
           )}
           <Route 
             path = '*'
-            element = { <Navigate to={ sesion ? '/home' : '/auth' } /> }
+            element = { <Navigate to={ sesion.sesion ? '/home' : '/auth' } /> }
           />
         </Routes>
       </BrowserRouter>
