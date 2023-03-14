@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Login, Dashboard } from "./components/pages";
-import 'antd/dist/reset.css';
+import { ChakraProvider } from '@chakra-ui/react';
 
 function App() {
   let sesionValue : any = {sesion: false};
@@ -17,30 +17,32 @@ function App() {
 	}, [sesion]);
 
   return (
-    <main className="App">
-      <BrowserRouter>
-        <Routes>
-          { !sesion.sesion && (
-            <Route 
-              path = '/auth'
-              element = { <Login /> }
-            />
-          )}
-          { sesion.sesion && (
-            <>
+    <ChakraProvider>
+      <main className="App">
+        <BrowserRouter>
+          <Routes>
+            { !sesion.sesion && (
               <Route 
-                path = '/home'
-                element = { <Dashboard /> }
+                path = '/auth'
+                element = { <Login /> }
               />
-            </>	
-          )}
-          <Route 
-            path = '*'
-            element = { <Navigate to={ sesion.sesion ? '/home' : '/auth' } /> }
-          />
-        </Routes>
-      </BrowserRouter>
-    </main>
+            )}
+            { sesion.sesion && (
+              <>
+                <Route 
+                  path = '/home'
+                  element = { <Dashboard /> }
+                />
+              </>	
+            )}
+            <Route 
+              path = '*'
+              element = { <Navigate to={ sesion.sesion ? '/home' : '/auth' } /> }
+            />
+          </Routes>
+        </BrowserRouter>
+      </main>
+    </ChakraProvider>
   )
 }
 
